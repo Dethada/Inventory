@@ -1,0 +1,99 @@
+{% include 'partials/header.html' %}
+	<body>
+		<h1><b>Items</b></h1>
+		<p>
+			<div class="add_item"><a href="add/">Add Item</a></div>
+			<div class="welcome_msg">Welcome {{request.user.username}}<a href="logout/"> Logout</a></div>
+		</p>
+	</body>
+
+	<table class="table table-bordered" id="items_table">
+		<thead>
+			<tr>
+				<th>Item</th>
+				<th>Quantity</th>
+				<th>Category</th>
+				<th>Bought on</th>
+				<th>Expires on</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for item in items %}
+			<tr>
+				<td>{{item.title}}</td>
+				<td>{{item.quantity}}{{item.unit}}
+					<a href="{% url 'increment' item.id %}"> + </a>
+					<a href="{% url 'decrement' item.id %}"> -- </a></td>
+				<td>{{item.category}}</td>
+				<td>{{item.created_at|date:"d/m/Y"}}</td>
+				<td>{{item.expires_at|date:"d/m/Y"}}</td>
+				<td>
+					<a href="{% url 'edit' item.id %}">edit</a>
+					<a href="{% url 'delete' item.id %}">delete</a>
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	<div class="add_form">
+		<form action="{% url 'add' %}" method="post">
+			{% csrf_token %}
+			<label for="title">Name</label><br>
+			<input type="text" name="title" id="title" placeholder="Enter item name here" required/>
+			<br>
+			<label class="required" for="id_quantity">Quantity</label><br>
+			<input type="number" name="quantity" value="1" id="id_quantity" required class="vIntegerField" min="1" />
+			<br>
+			<label for="unit">Unit</label><br>
+			<select name="unit" id="unit">
+				<option value="u">u</option>
+				<option value="g">g</option>
+				<option value="kg">kg</option>
+				<option value="ml">ml</option>
+				<option value="packets">packets</option>
+				<option value="bottles">bottles</option>
+			</select>
+			<br>
+			<label for="category">Category</label><br>
+			<select name="category" id="category">
+				<option value="Fruits">Fruits</option>
+				<option value="Vegetables">Vegetables</option>
+				<option value="Drinks">Drinks</option>
+				<option value="Meat">Meat</option>
+				<option value="Snacks">Snacks</option>
+			</select>
+			<br>
+			<label for="id_created_at">Created at</label><br>
+			<input type="date" name="created_at" id="id_created_at" size="10" required />
+			<br>
+			<label for="id_expires_at">Expires at</label><br>
+			<input type="date" name="expires_at" id="id_expires_at" size="10" />
+			<br><br>
+			<input class="btn btn-primary" type="submit" value="Add" />
+		</form>
+		{% if messages %}
+		<ul class="messages">
+			{% for message in messages %}
+			<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+			{% endfor %}
+		</ul>
+		{% endif %}
+	</div>
+
+	<!-- Autofills created at with current date -->
+	<script type="text/javascript">
+		document.getElementById('id_created_at').valueAsDate = new Date();
+	</script>
+  	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+ 	<!-- Latest compiled and minified JavaScript -->
+ 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+ 	<script type="text/javascript">
+	$(document).ready(function() {
+    	$('#items_table').DataTable();
+	});
+ 	</script>
+</html>

@@ -1,0 +1,104 @@
+{% include 'partials/header.html' %}
+	<div class="add_form">
+		<form action="{% url 'add' %}" method="post">
+			{% csrf_token %}
+			<label for="title">Name</label><br>
+			<input type="text" name="title" id="title" placeholder="Enter item name here" required/>
+			<br>
+			<label class="required" for="id_quantity">Quantity</label><br>
+			<input type="number" name="quantity" value="1" id="id_quantity" required class="vIntegerField" min="1" />
+			<br>
+			<label for="unit">Unit</label><br>
+			<select name="unit" id="unit">
+				<option value="u">u</option>
+				<option value="g">g</option>
+				<option value="kg">kg</option>
+				<option value="ml">ml</option>
+				<option value="packets">packets</option>
+				<option value="bottles">bottles</option>
+			</select>
+			<br>
+			<label for="category">Category</label><br>
+			<select name="category" id="category">
+				<option value="Fruits">Fruits</option>
+				<option value="Vegetables">Vegetables</option>
+				<option value="Drinks">Drinks</option>
+				<option value="Meat">Meat</option>
+				<option value="Snacks">Snacks</option>
+			</select>
+			<br>
+			<label for="id_created_at">Created at</label><br>
+			<input type="date" name="created_at" id="id_created_at" size="10" required />
+			<br>
+			<label for="id_expires_at">Expires at</label><br>
+			<input type="date" name="expires_at" id="id_expires_at" size="10" />
+			<br><br>
+			<input class="btn btn-primary" type="submit" value="Add" />
+		</form>
+		{% if messages %}
+		<ul class="messages">
+			{% for message in messages %}
+			<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+			{% endfor %}
+		</ul>
+		{% endif %}
+		<br>
+		<a href="/">Go Back</a>
+	</div>
+	<div class="container">
+	  <form>
+	    <div class="form-group row">
+	      <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+	      <div class="col-sm-10">
+	        <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+	      </div>
+	    </div>
+	    <div class="form-group row">
+	      <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
+	      <div class="col-sm-10">
+	        <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+	      </div>
+	    </div>
+	    <fieldset class="form-group">
+	      <div class="row">
+	        <legend class="col-form-legend col-sm-2">Radios</legend>
+	        <div class="col-sm-10">
+	          <div class="form-check">
+	            <label class="form-check-label">
+	              <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+	              Option one is this and that&mdash;be sure to include why it's great
+	            </label>
+	          </div>
+	          <div class="form-check">
+	            <label class="form-check-label">
+	              <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+	              Option two can be something else and selecting it will deselect option one
+	            </label>
+	          </div>
+	          <div class="form-check disabled">
+	            <label class="form-check-label">
+	              <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option3" disabled>
+	              Option three is disabled
+	            </label>
+	          </div>
+	        </div>
+	      </div>
+	    </fieldset>
+	    <div class="form-group row">
+	      <div class="col-sm-2">Checkbox</div>
+	      <div class="col-sm-10">
+	        <div class="form-check">
+	          <label class="form-check-label">
+	            <input class="form-check-input" type="checkbox"> Check me out
+	          </label>
+	        </div>
+	      </div>
+	    </div>
+	    <div class="form-group row">
+	      <div class="col-sm-10">
+	        <button type="submit" class="btn btn-primary">Sign in</button>
+	      </div>
+	    </div>
+	  </form>
+	</div>
+{% include 'partials/footer.html' %}

@@ -1,0 +1,28 @@
+h1 {
+	text-align: center;
+}
+
+.add_item {
+	text-align: left;
+}
+
+.welcome_msg {
+	text-align: right;
+}
+
+ul {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+.add_form {
+	text-align: center;
+}
+
+input, select {
+    width: 200px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}

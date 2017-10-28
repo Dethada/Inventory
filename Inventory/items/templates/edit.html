@@ -1,0 +1,24 @@
+{% include 'partials/header.html' %}
+	<form action="{% url 'edit' item.id %}" method="post">
+		{% csrf_token %}
+		<label for="title">Name: {{item.title}}</label>
+		<br>
+		<label class="required" for="id_quantity">Quantity:</label>
+		<input type="number" name="quantity" value="{{item.quantity}}" id="id_quantity" required class="vIntegerField" min="1" />
+		<br>
+		<label for="category">Category:</label>
+		<input list="categories" name="category" id="category" placeholder="Choose an category" value="{{item.category}}" required/>
+		<datalist id="categories">
+			<option value="Fruits">
+			<option value="Vegetables">
+			<option value="Drinks">
+			<option value="Meat">
+			<option value="Snacks">
+		</datalist>
+		<br>
+		<label for="id_expires_at">Expires at:</label>
+		<input type="date" name="expires_at" id="id_expires_at" size="10" value="{{item.expires_at|date:'Y-m-d'}}" />
+		<br><br>
+		<input type="submit" value="Submit" />
+	</form>
+{% include 'partials/footer.html' %}
